@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lbs.dao.FuncInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.lbs.model.FuncInfo" >
+    <id column="func_id" property="funcId" jdbcType="BIGINT" />
+    <result column="func_name" property="funcName" jdbcType="VARCHAR" />
+    <result column="func_type" property="funcType" jdbcType="VARCHAR" />
+    <result column="func_stat" property="funcStat" jdbcType="VARCHAR" />
+    <result column="func_parent_id" property="funcParentId" jdbcType="BIGINT" />
+    <result column="func_desc" property="funcDesc" jdbcType="VARCHAR" />
+    <result column="has_child" property="hasChild" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    func_id, func_name, func_type, func_stat, func_parent_id, func_desc, has_child, create_time, 
+    update_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.lbs.model.FuncInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tb_func_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_func_info
+    where func_id = #{funcId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tb_func_info
+    where func_id = #{funcId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.lbs.model.FuncInfoExample" >
+    delete from tb_func_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.lbs.model.FuncInfo" >
+    insert into tb_func_info (func_id, func_name, func_type, 
+      func_stat, func_parent_id, func_desc, 
+      has_child, create_time, update_time
+      )
+    values (#{funcId,jdbcType=BIGINT}, #{funcName,jdbcType=VARCHAR}, #{funcType,jdbcType=VARCHAR}, 
+      #{funcStat,jdbcType=VARCHAR}, #{funcParentId,jdbcType=BIGINT}, #{funcDesc,jdbcType=VARCHAR}, 
+      #{hasChild,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR}, #{updateTime,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.lbs.model.FuncInfo" >
+    insert into tb_func_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="funcId != null" >
+        func_id,
+      </if>
+      <if test="funcName != null" >
+        func_name,
+      </if>
+      <if test="funcType != null" >
+        func_type,
+      </if>
+      <if test="funcStat != null" >
+        func_stat,
+      </if>
+      <if test="funcParentId != null" >
+        func_parent_id,
+      </if>
+      <if test="funcDesc != null" >
+        func_desc,
+      </if>
+      <if test="hasChild != null" >
+        has_child,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="funcId != null" >
+        #{funcId,jdbcType=BIGINT},
+      </if>
+      <if test="funcName != null" >
+        #{funcName,jdbcType=VARCHAR},
+      </if>
+      <if test="funcType != null" >
+        #{funcType,jdbcType=VARCHAR},
+      </if>
+      <if test="funcStat != null" >
+        #{funcStat,jdbcType=VARCHAR},
+      </if>
+      <if test="funcParentId != null" >
+        #{funcParentId,jdbcType=BIGINT},
+      </if>
+      <if test="funcDesc != null" >
+        #{funcDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="hasChild != null" >
+        #{hasChild,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.lbs.model.FuncInfoExample" resultType="java.lang.Integer" >
+    select count(*) from tb_func_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tb_func_info
+    <set >
+      <if test="record.funcId != null" >
+        func_id = #{record.funcId,jdbcType=BIGINT},
+      </if>
+      <if test="record.funcName != null" >
+        func_name = #{record.funcName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.funcType != null" >
+        func_type = #{record.funcType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.funcStat != null" >
+        func_stat = #{record.funcStat,jdbcType=VARCHAR},
+      </if>
+      <if test="record.funcParentId != null" >
+        func_parent_id = #{record.funcParentId,jdbcType=BIGINT},
+      </if>
+      <if test="record.funcDesc != null" >
+        func_desc = #{record.funcDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hasChild != null" >
+        has_child = #{record.hasChild,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tb_func_info
+    set func_id = #{record.funcId,jdbcType=BIGINT},
+      func_name = #{record.funcName,jdbcType=VARCHAR},
+      func_type = #{record.funcType,jdbcType=VARCHAR},
+      func_stat = #{record.funcStat,jdbcType=VARCHAR},
+      func_parent_id = #{record.funcParentId,jdbcType=BIGINT},
+      func_desc = #{record.funcDesc,jdbcType=VARCHAR},
+      has_child = #{record.hasChild,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=VARCHAR},
+      update_time = #{record.updateTime,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lbs.model.FuncInfo" >
+    update tb_func_info
+    <set >
+      <if test="funcName != null" >
+        func_name = #{funcName,jdbcType=VARCHAR},
+      </if>
+      <if test="funcType != null" >
+        func_type = #{funcType,jdbcType=VARCHAR},
+      </if>
+      <if test="funcStat != null" >
+        func_stat = #{funcStat,jdbcType=VARCHAR},
+      </if>
+      <if test="funcParentId != null" >
+        func_parent_id = #{funcParentId,jdbcType=BIGINT},
+      </if>
+      <if test="funcDesc != null" >
+        func_desc = #{funcDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="hasChild != null" >
+        has_child = #{hasChild,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where func_id = #{funcId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lbs.model.FuncInfo" >
+    update tb_func_info
+    set func_name = #{funcName,jdbcType=VARCHAR},
+      func_type = #{funcType,jdbcType=VARCHAR},
+      func_stat = #{funcStat,jdbcType=VARCHAR},
+      func_parent_id = #{funcParentId,jdbcType=BIGINT},
+      func_desc = #{funcDesc,jdbcType=VARCHAR},
+      has_child = #{hasChild,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=VARCHAR}
+    where func_id = #{funcId,jdbcType=BIGINT}
+  </update>
+</mapper>

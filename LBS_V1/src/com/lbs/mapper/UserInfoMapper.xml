@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lbs.dao.UserInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.lbs.model.UserInfo" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="pass_word" property="passWord" jdbcType="VARCHAR" />
+    <result column="real_name" property="realName" jdbcType="VARCHAR" />
+    <result column="tel_no" property="telNo" jdbcType="VARCHAR" />
+    <result column="powers" property="powers" jdbcType="VARCHAR" />
+    <result column="state" property="state" jdbcType="VARCHAR" />
+    <result column="reg_time" property="regTime" jdbcType="VARCHAR" />
+    <result column="log_ntime" property="logNtime" jdbcType="VARCHAR" />
+    <result column="image_path" property="imagePath" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="rsvd1" property="rsvd1" jdbcType="VARCHAR" />
+    <result column="rsvd2" property="rsvd2" jdbcType="VARCHAR" />
+    <result column="parent_id" property="parentId" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, user_name, pass_word, real_name, tel_no, powers, state, reg_time, log_ntime, 
+    image_path, email, rsvd1, rsvd2, parent_id
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.lbs.model.UserInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tb_user_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_user_info
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tb_user_info
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.lbs.model.UserInfoExample" >
+    delete from tb_user_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.lbs.model.UserInfo" >
+    insert into tb_user_info (id, user_name, pass_word, 
+      real_name, tel_no, powers, 
+      state, reg_time, log_ntime, 
+      image_path, email, rsvd1, 
+      rsvd2, parent_id)
+    values (#{id,jdbcType=BIGINT}, #{userName,jdbcType=VARCHAR}, #{passWord,jdbcType=VARCHAR}, 
+      #{realName,jdbcType=VARCHAR}, #{telNo,jdbcType=VARCHAR}, #{powers,jdbcType=VARCHAR}, 
+      #{state,jdbcType=VARCHAR}, #{regTime,jdbcType=VARCHAR}, #{logNtime,jdbcType=VARCHAR}, 
+      #{imagePath,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{rsvd1,jdbcType=VARCHAR}, 
+      #{rsvd2,jdbcType=VARCHAR}, #{parentId,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lbs.model.UserInfo" >
+    insert into tb_user_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userName != null" >
+        user_name,
+      </if>
+      <if test="passWord != null" >
+        pass_word,
+      </if>
+      <if test="realName != null" >
+        real_name,
+      </if>
+      <if test="telNo != null" >
+        tel_no,
+      </if>
+      <if test="powers != null" >
+        powers,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+      <if test="regTime != null" >
+        reg_time,
+      </if>
+      <if test="logNtime != null" >
+        log_ntime,
+      </if>
+      <if test="imagePath != null" >
+        image_path,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="rsvd1 != null" >
+        rsvd1,
+      </if>
+      <if test="rsvd2 != null" >
+        rsvd2,
+      </if>
+      <if test="parentId != null" >
+        parent_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="passWord != null" >
+        #{passWord,jdbcType=VARCHAR},
+      </if>
+      <if test="realName != null" >
+        #{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="telNo != null" >
+        #{telNo,jdbcType=VARCHAR},
+      </if>
+      <if test="powers != null" >
+        #{powers,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="regTime != null" >
+        #{regTime,jdbcType=VARCHAR},
+      </if>
+      <if test="logNtime != null" >
+        #{logNtime,jdbcType=VARCHAR},
+      </if>
+      <if test="imagePath != null" >
+        #{imagePath,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="rsvd1 != null" >
+        #{rsvd1,jdbcType=VARCHAR},
+      </if>
+      <if test="rsvd2 != null" >
+        #{rsvd2,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null" >
+        #{parentId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.lbs.model.UserInfoExample" resultType="java.lang.Integer" >
+    select count(*) from tb_user_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tb_user_info
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.userName != null" >
+        user_name = #{record.userName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.passWord != null" >
+        pass_word = #{record.passWord,jdbcType=VARCHAR},
+      </if>
+      <if test="record.realName != null" >
+        real_name = #{record.realName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.telNo != null" >
+        tel_no = #{record.telNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.powers != null" >
+        powers = #{record.powers,jdbcType=VARCHAR},
+      </if>
+      <if test="record.state != null" >
+        state = #{record.state,jdbcType=VARCHAR},
+      </if>
+      <if test="record.regTime != null" >
+        reg_time = #{record.regTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.logNtime != null" >
+        log_ntime = #{record.logNtime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.imagePath != null" >
+        image_path = #{record.imagePath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.email != null" >
+        email = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rsvd1 != null" >
+        rsvd1 = #{record.rsvd1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rsvd2 != null" >
+        rsvd2 = #{record.rsvd2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.parentId != null" >
+        parent_id = #{record.parentId,jdbcType=BIGINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tb_user_info
+    set id = #{record.id,jdbcType=BIGINT},
+      user_name = #{record.userName,jdbcType=VARCHAR},
+      pass_word = #{record.passWord,jdbcType=VARCHAR},
+      real_name = #{record.realName,jdbcType=VARCHAR},
+      tel_no = #{record.telNo,jdbcType=VARCHAR},
+      powers = #{record.powers,jdbcType=VARCHAR},
+      state = #{record.state,jdbcType=VARCHAR},
+      reg_time = #{record.regTime,jdbcType=VARCHAR},
+      log_ntime = #{record.logNtime,jdbcType=VARCHAR},
+      image_path = #{record.imagePath,jdbcType=VARCHAR},
+      email = #{record.email,jdbcType=VARCHAR},
+      rsvd1 = #{record.rsvd1,jdbcType=VARCHAR},
+      rsvd2 = #{record.rsvd2,jdbcType=VARCHAR},
+      parent_id = #{record.parentId,jdbcType=BIGINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lbs.model.UserInfo" >
+    update tb_user_info
+    <set >
+      <if test="userName != null" >
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="passWord != null" >
+        pass_word = #{passWord,jdbcType=VARCHAR},
+      </if>
+      <if test="realName != null" >
+        real_name = #{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="telNo != null" >
+        tel_no = #{telNo,jdbcType=VARCHAR},
+      </if>
+      <if test="powers != null" >
+        powers = #{powers,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="regTime != null" >
+        reg_time = #{regTime,jdbcType=VARCHAR},
+      </if>
+      <if test="logNtime != null" >
+        log_ntime = #{logNtime,jdbcType=VARCHAR},
+      </if>
+      <if test="imagePath != null" >
+        image_path = #{imagePath,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="rsvd1 != null" >
+        rsvd1 = #{rsvd1,jdbcType=VARCHAR},
+      </if>
+      <if test="rsvd2 != null" >
+        rsvd2 = #{rsvd2,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null" >
+        parent_id = #{parentId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lbs.model.UserInfo" >
+    update tb_user_info
+    set user_name = #{userName,jdbcType=VARCHAR},
+      pass_word = #{passWord,jdbcType=VARCHAR},
+      real_name = #{realName,jdbcType=VARCHAR},
+      tel_no = #{telNo,jdbcType=VARCHAR},
+      powers = #{powers,jdbcType=VARCHAR},
+      state = #{state,jdbcType=VARCHAR},
+      reg_time = #{regTime,jdbcType=VARCHAR},
+      log_ntime = #{logNtime,jdbcType=VARCHAR},
+      image_path = #{imagePath,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      rsvd1 = #{rsvd1,jdbcType=VARCHAR},
+      rsvd2 = #{rsvd2,jdbcType=VARCHAR},
+      parent_id = #{parentId,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

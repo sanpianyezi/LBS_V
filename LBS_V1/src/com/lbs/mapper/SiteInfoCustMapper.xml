@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lbs.dao.SiteInfoCustMapper" >
+  <resultMap id="BaseResultMap" type="com.lbs.vo.SiteInfoVO" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="site_code" property="siteCode" jdbcType="BIGINT" />
+    <result column="site_type" property="siteType" jdbcType="VARCHAR" />
+    <result column="site_name" property="siteName" jdbcType="VARCHAR" />
+    <result column="service_group" property="serviceGroup" jdbcType="VARCHAR" />
+    <result column="voltage_grade" property="voltageGrade" jdbcType="VARCHAR" />
+    <result column="work_time" property="workTime" jdbcType="VARCHAR" />
+    <result column="is_intelligent" property="isIntelligent" jdbcType="VARCHAR" />
+    <result column="is_hub" property="isHub" jdbcType="VARCHAR" />
+    <result column="site_level" property="siteLevel" jdbcType="VARCHAR" />
+    <result column="duty_type" property="dutyType" jdbcType="VARCHAR" />
+    <result column="agent_service" property="agentService" jdbcType="VARCHAR" />
+    <result column="cabling_type" property="cablingType" jdbcType="VARCHAR" />
+    <result column="contamination_level" property="contaminationLevel" jdbcType="VARCHAR" />
+    <result column="site_addr" property="siteAddr" jdbcType="VARCHAR" />
+    <result column="area_covered" property="areaCovered" jdbcType="DECIMAL" />
+    <result column="building_area" property="buildingArea" jdbcType="DECIMAL" />
+    <result column="region_features" property="regionFeatures" jdbcType="VARCHAR" />
+    <result column="contact_tel" property="contactTel" jdbcType="VARCHAR" />
+    <result column="short_name" property="shortName" jdbcType="VARCHAR" />
+    <result column="equipment_owner" property="equipmentOwner" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="total_capacity" property="totalCapacity" jdbcType="DECIMAL" />
+    <result column="equipment_num" property="equipmentNum" jdbcType="DECIMAL" />
+    <result column="important_degree" property="importantDegree" jdbcType="VARCHAR" />
+    <result column="is_underground" property="isUnderground" jdbcType="VARCHAR" />
+    <result column="is_independent" property="isIndependent" jdbcType="VARCHAR" />
+    <result column="prevention_type" property="preventionType" jdbcType="VARCHAR" />
+    <result column="has_ring_network" property="hasRingNetwork" jdbcType="VARCHAR" />
+    <result column="compensate_capacity" property="compensateCapacity" jdbcType="DECIMAL" />
+    <result column="equipment_code" property="equipmentCode" jdbcType="VARCHAR" />
+    <result column="state" property="state" jdbcType="VARCHAR" />
+    <result column="longitude_point" property="longitudePoint" jdbcType="DECIMAL" />
+    <result column="latitude_point" property="latitudePoint" jdbcType="DECIMAL" />
+    <result column="create_time" property="createTime" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="image_path" property="imagePath" jdbcType="VARCHAR" />
+    <result column="belong_area" property="belongArea" jdbcType="VARCHAR" />
+  </resultMap>
+ 
+  <sql id="Base_Column_List" >
+    id, site_code, site_type, site_name, service_group, voltage_grade, work_time, is_intelligent, 
+    is_hub, site_level, duty_type, agent_service, cabling_type, contamination_level, 
+    site_addr, area_covered, building_area, region_features, contact_tel, short_name, 
+    equipment_owner, remark, total_capacity, equipment_num, important_degree, is_underground, 
+    is_independent, prevention_type, has_ring_network, compensate_capacity, equipment_code, 
+    state, longitude_point, latitude_point, create_time, update_time, user_id, image_path, belong_area
+  </sql>
+  <select id="selectListByUserId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select
+   		a.*
+    from tb_site_info a , tb_user_site_mapper b 
+	where a.id = b.site_id and b.stat ='N'  and b.user_id = #{id,jdbcType=BIGINT}
+     <if test="pageNum != null " >
+     limit #{pageNum,jdbcType=INTEGER} , #{pageSize,jdbcType=INTEGER}
+    </if>
+  </select>
+  
+   <select id="selectALLSiteList" resultMap="BaseResultMap"  parameterType="com.lbs.vo.SiteInfoVO">
+    select
+      distinct
+   		a.*
+    from tb_site_info a
+	where 1=1
+	<if test="siteCode != null " >
+      and a.site_code = #{siteCode,jdbcType=BIGINT}
+    </if>
+    <if test="siteName != null " >
+      and a.site_name = #{siteName,jdbcType=VARCHAR}
+    </if>
+    <if test="siteType != null " >
+      and a.site_type = #{siteType,jdbcType=VARCHAR}
+    </if>
+    <if test="siteAddr != null " >
+      and a.site_addr like  CONCAT('%', #{siteAddr,jdbcType=VARCHAR}, '%') 
+    </if>
+     <if test="userId != null " >
+      and a.user_id = #{userId,jdbcType=BIGINT}
+    </if>
+     <if test="belongArea != null " >
+      and a.belong_area = #{belongArea,jdbcType=VARCHAR}
+    </if>
+    <if test="pageNum != null " >
+     limit #{pageNum,jdbcType=INTEGER} , #{pageSize,jdbcType=INTEGER}
+    </if>
+    
+	
+    
+  </select>  
+ 
+ <select id="selectSiteAreaList" resultType="java.lang.String">
+ 	SELECT
+ 	DISTINCT
+	belong_area
+	FROM tb_site_info where belong_area is not null and belong_area !='';
+ 
+ </select>
+</mapper>

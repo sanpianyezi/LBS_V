@@ -1,0 +1,766 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lbs.dao.SiteInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.lbs.model.SiteInfo" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="site_code" property="siteCode" jdbcType="BIGINT" />
+    <result column="site_type" property="siteType" jdbcType="VARCHAR" />
+    <result column="site_name" property="siteName" jdbcType="VARCHAR" />
+    <result column="service_group" property="serviceGroup" jdbcType="VARCHAR" />
+    <result column="voltage_grade" property="voltageGrade" jdbcType="VARCHAR" />
+    <result column="work_time" property="workTime" jdbcType="VARCHAR" />
+    <result column="is_intelligent" property="isIntelligent" jdbcType="VARCHAR" />
+    <result column="is_hub" property="isHub" jdbcType="VARCHAR" />
+    <result column="site_level" property="siteLevel" jdbcType="VARCHAR" />
+    <result column="duty_type" property="dutyType" jdbcType="VARCHAR" />
+    <result column="agent_service" property="agentService" jdbcType="VARCHAR" />
+    <result column="cabling_type" property="cablingType" jdbcType="VARCHAR" />
+    <result column="contamination_level" property="contaminationLevel" jdbcType="VARCHAR" />
+    <result column="site_addr" property="siteAddr" jdbcType="VARCHAR" />
+    <result column="area_covered" property="areaCovered" jdbcType="DECIMAL" />
+    <result column="building_area" property="buildingArea" jdbcType="DECIMAL" />
+    <result column="region_features" property="regionFeatures" jdbcType="VARCHAR" />
+    <result column="contact_tel" property="contactTel" jdbcType="VARCHAR" />
+    <result column="short_name" property="shortName" jdbcType="VARCHAR" />
+    <result column="equipment_owner" property="equipmentOwner" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="total_capacity" property="totalCapacity" jdbcType="DECIMAL" />
+    <result column="equipment_num" property="equipmentNum" jdbcType="DECIMAL" />
+    <result column="important_degree" property="importantDegree" jdbcType="VARCHAR" />
+    <result column="is_underground" property="isUnderground" jdbcType="VARCHAR" />
+    <result column="is_independent" property="isIndependent" jdbcType="VARCHAR" />
+    <result column="prevention_type" property="preventionType" jdbcType="VARCHAR" />
+    <result column="has_ring_network" property="hasRingNetwork" jdbcType="VARCHAR" />
+    <result column="compensate_capacity" property="compensateCapacity" jdbcType="DECIMAL" />
+    <result column="equipment_code" property="equipmentCode" jdbcType="VARCHAR" />
+    <result column="state" property="state" jdbcType="VARCHAR" />
+    <result column="longitude_point" property="longitudePoint" jdbcType="DECIMAL" />
+    <result column="latitude_point" property="latitudePoint" jdbcType="DECIMAL" />
+    <result column="create_time" property="createTime" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="image_path" property="imagePath" jdbcType="VARCHAR" />
+    <result column="belong_area" property="belongArea" jdbcType="VARCHAR" />
+    <result column="come_from" property="comeFrom" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, site_code, site_type, site_name, service_group, voltage_grade, work_time, is_intelligent, 
+    is_hub, site_level, duty_type, agent_service, cabling_type, contamination_level, 
+    site_addr, area_covered, building_area, region_features, contact_tel, short_name, 
+    equipment_owner, remark, total_capacity, equipment_num, important_degree, is_underground, 
+    is_independent, prevention_type, has_ring_network, compensate_capacity, equipment_code, 
+    state, longitude_point, latitude_point, create_time, update_time, user_id, image_path, 
+    belong_area, come_from
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.lbs.model.SiteInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tb_site_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_site_info
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tb_site_info
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.lbs.model.SiteInfoExample" >
+    delete from tb_site_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.lbs.model.SiteInfo" >
+    insert into tb_site_info (id, site_code, site_type, 
+      site_name, service_group, voltage_grade, 
+      work_time, is_intelligent, is_hub, 
+      site_level, duty_type, agent_service, 
+      cabling_type, contamination_level, site_addr, 
+      area_covered, building_area, region_features, 
+      contact_tel, short_name, equipment_owner, 
+      remark, total_capacity, equipment_num, 
+      important_degree, is_underground, is_independent, 
+      prevention_type, has_ring_network, compensate_capacity, 
+      equipment_code, state, longitude_point, 
+      latitude_point, create_time, update_time, 
+      user_id, image_path, belong_area, 
+      come_from)
+    values (#{id,jdbcType=BIGINT}, #{siteCode,jdbcType=BIGINT}, #{siteType,jdbcType=VARCHAR}, 
+      #{siteName,jdbcType=VARCHAR}, #{serviceGroup,jdbcType=VARCHAR}, #{voltageGrade,jdbcType=VARCHAR}, 
+      #{workTime,jdbcType=VARCHAR}, #{isIntelligent,jdbcType=VARCHAR}, #{isHub,jdbcType=VARCHAR}, 
+      #{siteLevel,jdbcType=VARCHAR}, #{dutyType,jdbcType=VARCHAR}, #{agentService,jdbcType=VARCHAR}, 
+      #{cablingType,jdbcType=VARCHAR}, #{contaminationLevel,jdbcType=VARCHAR}, #{siteAddr,jdbcType=VARCHAR}, 
+      #{areaCovered,jdbcType=DECIMAL}, #{buildingArea,jdbcType=DECIMAL}, #{regionFeatures,jdbcType=VARCHAR}, 
+      #{contactTel,jdbcType=VARCHAR}, #{shortName,jdbcType=VARCHAR}, #{equipmentOwner,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR}, #{totalCapacity,jdbcType=DECIMAL}, #{equipmentNum,jdbcType=DECIMAL}, 
+      #{importantDegree,jdbcType=VARCHAR}, #{isUnderground,jdbcType=VARCHAR}, #{isIndependent,jdbcType=VARCHAR}, 
+      #{preventionType,jdbcType=VARCHAR}, #{hasRingNetwork,jdbcType=VARCHAR}, #{compensateCapacity,jdbcType=DECIMAL}, 
+      #{equipmentCode,jdbcType=VARCHAR}, #{state,jdbcType=VARCHAR}, #{longitudePoint,jdbcType=DECIMAL}, 
+      #{latitudePoint,jdbcType=DECIMAL}, #{createTime,jdbcType=VARCHAR}, #{updateTime,jdbcType=VARCHAR}, 
+      #{userId,jdbcType=BIGINT}, #{imagePath,jdbcType=VARCHAR}, #{belongArea,jdbcType=VARCHAR}, 
+      #{comeFrom,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lbs.model.SiteInfo" >
+    insert into tb_site_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="siteCode != null" >
+        site_code,
+      </if>
+      <if test="siteType != null" >
+        site_type,
+      </if>
+      <if test="siteName != null" >
+        site_name,
+      </if>
+      <if test="serviceGroup != null" >
+        service_group,
+      </if>
+      <if test="voltageGrade != null" >
+        voltage_grade,
+      </if>
+      <if test="workTime != null" >
+        work_time,
+      </if>
+      <if test="isIntelligent != null" >
+        is_intelligent,
+      </if>
+      <if test="isHub != null" >
+        is_hub,
+      </if>
+      <if test="siteLevel != null" >
+        site_level,
+      </if>
+      <if test="dutyType != null" >
+        duty_type,
+      </if>
+      <if test="agentService != null" >
+        agent_service,
+      </if>
+      <if test="cablingType != null" >
+        cabling_type,
+      </if>
+      <if test="contaminationLevel != null" >
+        contamination_level,
+      </if>
+      <if test="siteAddr != null" >
+        site_addr,
+      </if>
+      <if test="areaCovered != null" >
+        area_covered,
+      </if>
+      <if test="buildingArea != null" >
+        building_area,
+      </if>
+      <if test="regionFeatures != null" >
+        region_features,
+      </if>
+      <if test="contactTel != null" >
+        contact_tel,
+      </if>
+      <if test="shortName != null" >
+        short_name,
+      </if>
+      <if test="equipmentOwner != null" >
+        equipment_owner,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="totalCapacity != null" >
+        total_capacity,
+      </if>
+      <if test="equipmentNum != null" >
+        equipment_num,
+      </if>
+      <if test="importantDegree != null" >
+        important_degree,
+      </if>
+      <if test="isUnderground != null" >
+        is_underground,
+      </if>
+      <if test="isIndependent != null" >
+        is_independent,
+      </if>
+      <if test="preventionType != null" >
+        prevention_type,
+      </if>
+      <if test="hasRingNetwork != null" >
+        has_ring_network,
+      </if>
+      <if test="compensateCapacity != null" >
+        compensate_capacity,
+      </if>
+      <if test="equipmentCode != null" >
+        equipment_code,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+      <if test="longitudePoint != null" >
+        longitude_point,
+      </if>
+      <if test="latitudePoint != null" >
+        latitude_point,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="imagePath != null" >
+        image_path,
+      </if>
+      <if test="belongArea != null" >
+        belong_area,
+      </if>
+      <if test="comeFrom != null" >
+        come_from,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="siteCode != null" >
+        #{siteCode,jdbcType=BIGINT},
+      </if>
+      <if test="siteType != null" >
+        #{siteType,jdbcType=VARCHAR},
+      </if>
+      <if test="siteName != null" >
+        #{siteName,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceGroup != null" >
+        #{serviceGroup,jdbcType=VARCHAR},
+      </if>
+      <if test="voltageGrade != null" >
+        #{voltageGrade,jdbcType=VARCHAR},
+      </if>
+      <if test="workTime != null" >
+        #{workTime,jdbcType=VARCHAR},
+      </if>
+      <if test="isIntelligent != null" >
+        #{isIntelligent,jdbcType=VARCHAR},
+      </if>
+      <if test="isHub != null" >
+        #{isHub,jdbcType=VARCHAR},
+      </if>
+      <if test="siteLevel != null" >
+        #{siteLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="dutyType != null" >
+        #{dutyType,jdbcType=VARCHAR},
+      </if>
+      <if test="agentService != null" >
+        #{agentService,jdbcType=VARCHAR},
+      </if>
+      <if test="cablingType != null" >
+        #{cablingType,jdbcType=VARCHAR},
+      </if>
+      <if test="contaminationLevel != null" >
+        #{contaminationLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="siteAddr != null" >
+        #{siteAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="areaCovered != null" >
+        #{areaCovered,jdbcType=DECIMAL},
+      </if>
+      <if test="buildingArea != null" >
+        #{buildingArea,jdbcType=DECIMAL},
+      </if>
+      <if test="regionFeatures != null" >
+        #{regionFeatures,jdbcType=VARCHAR},
+      </if>
+      <if test="contactTel != null" >
+        #{contactTel,jdbcType=VARCHAR},
+      </if>
+      <if test="shortName != null" >
+        #{shortName,jdbcType=VARCHAR},
+      </if>
+      <if test="equipmentOwner != null" >
+        #{equipmentOwner,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="totalCapacity != null" >
+        #{totalCapacity,jdbcType=DECIMAL},
+      </if>
+      <if test="equipmentNum != null" >
+        #{equipmentNum,jdbcType=DECIMAL},
+      </if>
+      <if test="importantDegree != null" >
+        #{importantDegree,jdbcType=VARCHAR},
+      </if>
+      <if test="isUnderground != null" >
+        #{isUnderground,jdbcType=VARCHAR},
+      </if>
+      <if test="isIndependent != null" >
+        #{isIndependent,jdbcType=VARCHAR},
+      </if>
+      <if test="preventionType != null" >
+        #{preventionType,jdbcType=VARCHAR},
+      </if>
+      <if test="hasRingNetwork != null" >
+        #{hasRingNetwork,jdbcType=VARCHAR},
+      </if>
+      <if test="compensateCapacity != null" >
+        #{compensateCapacity,jdbcType=DECIMAL},
+      </if>
+      <if test="equipmentCode != null" >
+        #{equipmentCode,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="longitudePoint != null" >
+        #{longitudePoint,jdbcType=DECIMAL},
+      </if>
+      <if test="latitudePoint != null" >
+        #{latitudePoint,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="imagePath != null" >
+        #{imagePath,jdbcType=VARCHAR},
+      </if>
+      <if test="belongArea != null" >
+        #{belongArea,jdbcType=VARCHAR},
+      </if>
+      <if test="comeFrom != null" >
+        #{comeFrom,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.lbs.model.SiteInfoExample" resultType="java.lang.Integer" >
+    select count(*) from tb_site_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tb_site_info
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.siteCode != null" >
+        site_code = #{record.siteCode,jdbcType=BIGINT},
+      </if>
+      <if test="record.siteType != null" >
+        site_type = #{record.siteType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.siteName != null" >
+        site_name = #{record.siteName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.serviceGroup != null" >
+        service_group = #{record.serviceGroup,jdbcType=VARCHAR},
+      </if>
+      <if test="record.voltageGrade != null" >
+        voltage_grade = #{record.voltageGrade,jdbcType=VARCHAR},
+      </if>
+      <if test="record.workTime != null" >
+        work_time = #{record.workTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isIntelligent != null" >
+        is_intelligent = #{record.isIntelligent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isHub != null" >
+        is_hub = #{record.isHub,jdbcType=VARCHAR},
+      </if>
+      <if test="record.siteLevel != null" >
+        site_level = #{record.siteLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dutyType != null" >
+        duty_type = #{record.dutyType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.agentService != null" >
+        agent_service = #{record.agentService,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cablingType != null" >
+        cabling_type = #{record.cablingType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contaminationLevel != null" >
+        contamination_level = #{record.contaminationLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.siteAddr != null" >
+        site_addr = #{record.siteAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.areaCovered != null" >
+        area_covered = #{record.areaCovered,jdbcType=DECIMAL},
+      </if>
+      <if test="record.buildingArea != null" >
+        building_area = #{record.buildingArea,jdbcType=DECIMAL},
+      </if>
+      <if test="record.regionFeatures != null" >
+        region_features = #{record.regionFeatures,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contactTel != null" >
+        contact_tel = #{record.contactTel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shortName != null" >
+        short_name = #{record.shortName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.equipmentOwner != null" >
+        equipment_owner = #{record.equipmentOwner,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.totalCapacity != null" >
+        total_capacity = #{record.totalCapacity,jdbcType=DECIMAL},
+      </if>
+      <if test="record.equipmentNum != null" >
+        equipment_num = #{record.equipmentNum,jdbcType=DECIMAL},
+      </if>
+      <if test="record.importantDegree != null" >
+        important_degree = #{record.importantDegree,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isUnderground != null" >
+        is_underground = #{record.isUnderground,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isIndependent != null" >
+        is_independent = #{record.isIndependent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.preventionType != null" >
+        prevention_type = #{record.preventionType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hasRingNetwork != null" >
+        has_ring_network = #{record.hasRingNetwork,jdbcType=VARCHAR},
+      </if>
+      <if test="record.compensateCapacity != null" >
+        compensate_capacity = #{record.compensateCapacity,jdbcType=DECIMAL},
+      </if>
+      <if test="record.equipmentCode != null" >
+        equipment_code = #{record.equipmentCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.state != null" >
+        state = #{record.state,jdbcType=VARCHAR},
+      </if>
+      <if test="record.longitudePoint != null" >
+        longitude_point = #{record.longitudePoint,jdbcType=DECIMAL},
+      </if>
+      <if test="record.latitudePoint != null" >
+        latitude_point = #{record.latitudePoint,jdbcType=DECIMAL},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=BIGINT},
+      </if>
+      <if test="record.imagePath != null" >
+        image_path = #{record.imagePath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.belongArea != null" >
+        belong_area = #{record.belongArea,jdbcType=VARCHAR},
+      </if>
+      <if test="record.comeFrom != null" >
+        come_from = #{record.comeFrom,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tb_site_info
+    set id = #{record.id,jdbcType=BIGINT},
+      site_code = #{record.siteCode,jdbcType=BIGINT},
+      site_type = #{record.siteType,jdbcType=VARCHAR},
+      site_name = #{record.siteName,jdbcType=VARCHAR},
+      service_group = #{record.serviceGroup,jdbcType=VARCHAR},
+      voltage_grade = #{record.voltageGrade,jdbcType=VARCHAR},
+      work_time = #{record.workTime,jdbcType=VARCHAR},
+      is_intelligent = #{record.isIntelligent,jdbcType=VARCHAR},
+      is_hub = #{record.isHub,jdbcType=VARCHAR},
+      site_level = #{record.siteLevel,jdbcType=VARCHAR},
+      duty_type = #{record.dutyType,jdbcType=VARCHAR},
+      agent_service = #{record.agentService,jdbcType=VARCHAR},
+      cabling_type = #{record.cablingType,jdbcType=VARCHAR},
+      contamination_level = #{record.contaminationLevel,jdbcType=VARCHAR},
+      site_addr = #{record.siteAddr,jdbcType=VARCHAR},
+      area_covered = #{record.areaCovered,jdbcType=DECIMAL},
+      building_area = #{record.buildingArea,jdbcType=DECIMAL},
+      region_features = #{record.regionFeatures,jdbcType=VARCHAR},
+      contact_tel = #{record.contactTel,jdbcType=VARCHAR},
+      short_name = #{record.shortName,jdbcType=VARCHAR},
+      equipment_owner = #{record.equipmentOwner,jdbcType=VARCHAR},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      total_capacity = #{record.totalCapacity,jdbcType=DECIMAL},
+      equipment_num = #{record.equipmentNum,jdbcType=DECIMAL},
+      important_degree = #{record.importantDegree,jdbcType=VARCHAR},
+      is_underground = #{record.isUnderground,jdbcType=VARCHAR},
+      is_independent = #{record.isIndependent,jdbcType=VARCHAR},
+      prevention_type = #{record.preventionType,jdbcType=VARCHAR},
+      has_ring_network = #{record.hasRingNetwork,jdbcType=VARCHAR},
+      compensate_capacity = #{record.compensateCapacity,jdbcType=DECIMAL},
+      equipment_code = #{record.equipmentCode,jdbcType=VARCHAR},
+      state = #{record.state,jdbcType=VARCHAR},
+      longitude_point = #{record.longitudePoint,jdbcType=DECIMAL},
+      latitude_point = #{record.latitudePoint,jdbcType=DECIMAL},
+      create_time = #{record.createTime,jdbcType=VARCHAR},
+      update_time = #{record.updateTime,jdbcType=VARCHAR},
+      user_id = #{record.userId,jdbcType=BIGINT},
+      image_path = #{record.imagePath,jdbcType=VARCHAR},
+      belong_area = #{record.belongArea,jdbcType=VARCHAR},
+      come_from = #{record.comeFrom,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lbs.model.SiteInfo" >
+    update tb_site_info
+    <set >
+      <if test="siteCode != null" >
+        site_code = #{siteCode,jdbcType=BIGINT},
+      </if>
+      <if test="siteType != null" >
+        site_type = #{siteType,jdbcType=VARCHAR},
+      </if>
+      <if test="siteName != null" >
+        site_name = #{siteName,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceGroup != null" >
+        service_group = #{serviceGroup,jdbcType=VARCHAR},
+      </if>
+      <if test="voltageGrade != null" >
+        voltage_grade = #{voltageGrade,jdbcType=VARCHAR},
+      </if>
+      <if test="workTime != null" >
+        work_time = #{workTime,jdbcType=VARCHAR},
+      </if>
+      <if test="isIntelligent != null" >
+        is_intelligent = #{isIntelligent,jdbcType=VARCHAR},
+      </if>
+      <if test="isHub != null" >
+        is_hub = #{isHub,jdbcType=VARCHAR},
+      </if>
+      <if test="siteLevel != null" >
+        site_level = #{siteLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="dutyType != null" >
+        duty_type = #{dutyType,jdbcType=VARCHAR},
+      </if>
+      <if test="agentService != null" >
+        agent_service = #{agentService,jdbcType=VARCHAR},
+      </if>
+      <if test="cablingType != null" >
+        cabling_type = #{cablingType,jdbcType=VARCHAR},
+      </if>
+      <if test="contaminationLevel != null" >
+        contamination_level = #{contaminationLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="siteAddr != null" >
+        site_addr = #{siteAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="areaCovered != null" >
+        area_covered = #{areaCovered,jdbcType=DECIMAL},
+      </if>
+      <if test="buildingArea != null" >
+        building_area = #{buildingArea,jdbcType=DECIMAL},
+      </if>
+      <if test="regionFeatures != null" >
+        region_features = #{regionFeatures,jdbcType=VARCHAR},
+      </if>
+      <if test="contactTel != null" >
+        contact_tel = #{contactTel,jdbcType=VARCHAR},
+      </if>
+      <if test="shortName != null" >
+        short_name = #{shortName,jdbcType=VARCHAR},
+      </if>
+      <if test="equipmentOwner != null" >
+        equipment_owner = #{equipmentOwner,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="totalCapacity != null" >
+        total_capacity = #{totalCapacity,jdbcType=DECIMAL},
+      </if>
+      <if test="equipmentNum != null" >
+        equipment_num = #{equipmentNum,jdbcType=DECIMAL},
+      </if>
+      <if test="importantDegree != null" >
+        important_degree = #{importantDegree,jdbcType=VARCHAR},
+      </if>
+      <if test="isUnderground != null" >
+        is_underground = #{isUnderground,jdbcType=VARCHAR},
+      </if>
+      <if test="isIndependent != null" >
+        is_independent = #{isIndependent,jdbcType=VARCHAR},
+      </if>
+      <if test="preventionType != null" >
+        prevention_type = #{preventionType,jdbcType=VARCHAR},
+      </if>
+      <if test="hasRingNetwork != null" >
+        has_ring_network = #{hasRingNetwork,jdbcType=VARCHAR},
+      </if>
+      <if test="compensateCapacity != null" >
+        compensate_capacity = #{compensateCapacity,jdbcType=DECIMAL},
+      </if>
+      <if test="equipmentCode != null" >
+        equipment_code = #{equipmentCode,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="longitudePoint != null" >
+        longitude_point = #{longitudePoint,jdbcType=DECIMAL},
+      </if>
+      <if test="latitudePoint != null" >
+        latitude_point = #{latitudePoint,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="imagePath != null" >
+        image_path = #{imagePath,jdbcType=VARCHAR},
+      </if>
+      <if test="belongArea != null" >
+        belong_area = #{belongArea,jdbcType=VARCHAR},
+      </if>
+      <if test="comeFrom != null" >
+        come_from = #{comeFrom,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lbs.model.SiteInfo" >
+    update tb_site_info
+    set site_code = #{siteCode,jdbcType=BIGINT},
+      site_type = #{siteType,jdbcType=VARCHAR},
+      site_name = #{siteName,jdbcType=VARCHAR},
+      service_group = #{serviceGroup,jdbcType=VARCHAR},
+      voltage_grade = #{voltageGrade,jdbcType=VARCHAR},
+      work_time = #{workTime,jdbcType=VARCHAR},
+      is_intelligent = #{isIntelligent,jdbcType=VARCHAR},
+      is_hub = #{isHub,jdbcType=VARCHAR},
+      site_level = #{siteLevel,jdbcType=VARCHAR},
+      duty_type = #{dutyType,jdbcType=VARCHAR},
+      agent_service = #{agentService,jdbcType=VARCHAR},
+      cabling_type = #{cablingType,jdbcType=VARCHAR},
+      contamination_level = #{contaminationLevel,jdbcType=VARCHAR},
+      site_addr = #{siteAddr,jdbcType=VARCHAR},
+      area_covered = #{areaCovered,jdbcType=DECIMAL},
+      building_area = #{buildingArea,jdbcType=DECIMAL},
+      region_features = #{regionFeatures,jdbcType=VARCHAR},
+      contact_tel = #{contactTel,jdbcType=VARCHAR},
+      short_name = #{shortName,jdbcType=VARCHAR},
+      equipment_owner = #{equipmentOwner,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      total_capacity = #{totalCapacity,jdbcType=DECIMAL},
+      equipment_num = #{equipmentNum,jdbcType=DECIMAL},
+      important_degree = #{importantDegree,jdbcType=VARCHAR},
+      is_underground = #{isUnderground,jdbcType=VARCHAR},
+      is_independent = #{isIndependent,jdbcType=VARCHAR},
+      prevention_type = #{preventionType,jdbcType=VARCHAR},
+      has_ring_network = #{hasRingNetwork,jdbcType=VARCHAR},
+      compensate_capacity = #{compensateCapacity,jdbcType=DECIMAL},
+      equipment_code = #{equipmentCode,jdbcType=VARCHAR},
+      state = #{state,jdbcType=VARCHAR},
+      longitude_point = #{longitudePoint,jdbcType=DECIMAL},
+      latitude_point = #{latitudePoint,jdbcType=DECIMAL},
+      create_time = #{createTime,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=BIGINT},
+      image_path = #{imagePath,jdbcType=VARCHAR},
+      belong_area = #{belongArea,jdbcType=VARCHAR},
+      come_from = #{comeFrom,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

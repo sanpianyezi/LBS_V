@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lbs.dao.UserRoleCustMapper" >
+  <resultMap id="BaseResultMap" type="com.lbs.model.FuncInfo" >
+    <id column="func_id" property="funcId" jdbcType="BIGINT" />
+    <result column="func_name" property="funcName" jdbcType="VARCHAR" />
+    <result column="func_type" property="funcType" jdbcType="VARCHAR" />
+    <result column="func_stat" property="funcStat" jdbcType="VARCHAR" />
+    <result column="func_parent_id" property="funcParentId" jdbcType="BIGINT" />
+    <result column="func_desc" property="funcDesc" jdbcType="VARCHAR" />
+    <result column="has_child" property="hasChild" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="VARCHAR" />
+  </resultMap>
+ 
+  <select id="selectFuncByUserId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    a.*
+  from tb_func_info a,tb_role_info b,tb_user_role_mapper c ,tb_user_info d
+  where  b.role_id = c.role_id and a.func_id = b.func_id and c.user_powers = d.powers and d.id = #{userId ,jdbcType=BIGINT};
+  </select>
+  
+</mapper>
